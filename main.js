@@ -110,7 +110,7 @@ document.addEventListener('mouseup', () => {
 });
 
 // Cursor grow effect on hover
-const hoverElements = document.querySelectorAll('.card, .gallery-item img');
+const hoverElements = document.querySelectorAll('.card, .gallery-item img, .gallery-item video');
 hoverElements.forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
