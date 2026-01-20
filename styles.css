@@ -246,17 +246,28 @@ body {
 /* Scroll Arrow */
 .scroll-arrow {
   position: absolute;
-  bottom: 30px;
+  bottom: 5px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 24px;
-  color: #ccc;
+  color: #000;
   animation: bounce 2s infinite;
   opacity: 0;
   transition: opacity 1s ease;
 }
 
-.card.animate-in ~ .scroll-arrow {
+.white-page-line {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #000;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.card.animate-in ~ .scroll-arrow,
+.card.animate-in ~ .white-page-line {
   opacity: 1;
 }
 
@@ -264,17 +275,6 @@ body {
   0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
   40% { transform: translate(-50%, -10px); }
   60% { transform: translate(-50%, -5px); }
-}
-
-/* Transition */
-.transition-gradient {
-  height: 250px;
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0) 100%
-  ), #000000;
-  width: 100%;
 }
 
 /* Gallery Section */
