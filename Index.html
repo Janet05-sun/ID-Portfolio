@@ -12,9 +12,9 @@
 <body>
 
 <div class="nav">
-  <div>Janet Sun</div>
+  <div onclick="window.location.href='Index.html'" style="cursor: pointer;">Janet Sun</div>
   <div class="nav-right">
-    <span>Work</span>
+    <span onclick="window.location.href='#work'" style="cursor: pointer;">Work</span>
     <span>Playground</span>
     <span>About</span>
   </div>
@@ -64,24 +64,31 @@
   <div class="white-page-line"></div>
 </div>
 
-<div class="gallery-section">
+<div class="gallery-section" id="work">
   <div class="gallery-grid">
-    <div class="gallery-item">
-      <img src="photo/Gemini_Generated_Image_8rr1y48rr1y48rr1.png" alt="Seedle">
-      <h3>Seedle</h3>
-      <h5>Interactive Experience Design</h5>
-    </div>
+    <a href="seedle.html" class="gallery-item-link">
+      <div class="gallery-item">
+        <img src="photo/Gemini_Generated_Image_8rr1y48rr1y48rr1.png" alt="Seedle">
+        <h3>Seedle</h3>
+        <h5>Interactive Experience Design</h5>
+        <h5><b>Featured at The Trinellial Exhibition 2025 @ RISD</b></h5>
+      </div>
+    </a>
     <div class="gallery-item">
       <video autoplay muted loop playsinline class="gallery-video">
         <source src="photo/headphone/headphones.34.mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
       <h3>Project Beta</h3>
       <h5>Visual Storytelling & Motion</h5>
     </div>
     <div class="gallery-item">
-      <img src="https://picsum.photos/600/400?random=3" alt="Gallery 3">
+      <video autoplay muted loop playsinline class="gallery-video">
+        <source src="photo/Recording 2025-10-29 160808.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
       <h3>Project Gamma</h3>
-      <h5>Industrial Design Research</h5>
+      <h5>Process Documentation</h5>
     </div>
     <div class="gallery-item">
       <img src="https://picsum.photos/600/400?random=4" alt="Gallery 4">

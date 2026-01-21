@@ -280,7 +280,7 @@ body {
 /* Gallery Section */
 .gallery-section {
   padding: 100px 10%;
-  background: #000;
+  background: #fff;
   min-height: 100vh;
 }
 
@@ -290,9 +290,16 @@ body {
   gap: 60px;
 }
 
+.gallery-item-link {
+  text-decoration: none;
+  cursor: none;
+}
+
 .gallery-item {
   text-align: left;
   transition: transform 0.4s ease;
+  background: #fff; /* Match page background */
+  overflow: hidden; /* Ensure scale doesn't bleed out */
 }
 
 .gallery-item:hover {
@@ -302,14 +309,24 @@ body {
 .gallery-item img,
 .gallery-item video {
   width: 100%;
-  height: auto;
-  border-radius: 2px;
+  height: 100%; /* Ensure it fills the aspect-ratio container */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0; /* Removed radius to prevent edge artifacts */
   margin-bottom: 25px;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+  border: none;
+  outline: none;
+  display: block;
+  background-color: #fff; /* Match page background */
 }
 
 .gallery-video {
-  filter: brightness(1.2);
+  object-fit: cover;
+  transform: scale(1.25); /* Aggressive zoom to crop out thick baked-in black bars */
+  transform-origin: center;
+  border: none !important;
+  outline: none !important;
 }
 
 .gallery-item h3 {
@@ -318,7 +335,7 @@ body {
   font-weight: 500;
   margin: 10px 0 8px 0;
   text-transform: uppercase;
-  color: #fff;
+  color: #000;
   letter-spacing: 1px;
 }
 
@@ -326,7 +343,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   margin: 0;
-  color: #888;
+  color: #666;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 400;
@@ -334,10 +351,10 @@ body {
 
 /* Footer Section */
 .footer {
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #000;
   padding: 80px 10%;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .footer-content {
@@ -352,19 +369,19 @@ body {
 
 .footer-left p {
   margin: 0;
-  color: #666;
+  color: #888;
 }
 
 .footer-right a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   margin-left: 40px;
-  color: #888;
+  color: #666;
   transition: color 0.3s ease;
 }
 
 .footer-right a:hover {
-  color: #fff;
+  color: #000;
 }
 
 /* Animation */
