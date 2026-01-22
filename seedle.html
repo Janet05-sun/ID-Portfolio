@@ -24,8 +24,9 @@
     font-family: 'Roboto Mono', monospace;
     font-size: 3rem;
     margin-bottom: 20px;
-    letter-spacing: -1px;
+    letter-spacing: 4px; /* Tighter letter spacing */
     text-transform: uppercase;
+    color: #323232;
   }
   .project-description {
     font-family: 'Inter', sans-serif;
@@ -42,7 +43,8 @@
   
   /* Timeline Styles */
   .process-section {
-    margin: 40px 0;
+    margin: 200px 0; /* Even more space between sections */
+    margin-top: 10px; /* Moved down by 15px (from -20px) */
   }
   .timeline-container {
     position: relative;
@@ -51,21 +53,21 @@
   .timeline-glass-pill {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    height: 160px; /* Increased to surround both bubble and text */
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(20px) saturate(1.8);
-    -webkit-backdrop-filter: blur(20px) saturate(1.8);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    left: 10%;
+    right: 10%;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.15); /* More translucent */
+    backdrop-filter: blur(40px) saturate(2); /* Stronger glass effect */
+    -webkit-backdrop-filter: blur(40px) saturate(2);
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Brighter glass edge */
     border-radius: 100px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.194);
     z-index: 0;
   }
   .timeline-glass-pill::before {
     content: "";
     position: absolute;
-    top: 72.5px; /* Adjusted to remain centered with larger circles */
+    top: 62.5px; /* Adjusted to center with 30px padding + 32.5px half-circle */
     left: 80px;
     right: 80px;
     height: 1px;
@@ -77,7 +79,7 @@
     justify-content: space-between;
     position: relative;
     z-index: 1;
-    padding: 40px 60px;
+    padding: 30px 15%; /* Reduced vertical padding, increased horizontal margin */
   }
   .timeline-item {
     display: flex;
@@ -89,22 +91,26 @@
     width: 65px;
     height: 65px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.8); /* More opaque background */
     backdrop-filter: blur(10px) saturate(1.5);
     -webkit-backdrop-filter: blur(10px) saturate(1.5);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 1); /* Changed outline to solid white */
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Roboto Mono', monospace;
     font-size: 16px;
+    font-weight: 700;
+    color: #303030; /* Lighter dark grey */
     margin-bottom: 12px; /* Close spacing */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* Stronger shadow under the circles */
     transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    z-index: 10; /* Bring circles in front */
   }
   .timeline-number:hover {
     background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-5px);
   }
   .timeline-item h4 {
@@ -112,14 +118,17 @@
     font-size: 12px;
     text-transform: uppercase;
     margin: 0;
-    color: #000;
+    color: #555; /* Lighter dark grey */
     text-align: center;
+    letter-spacing: 1px;
   }
-
   /* Gallery Styles */
   .project-gallery {
     padding: 80px 10%;
     background: #fff;
+    margin-top: -220px;
+    position: relative;
+    z-index: 10;
   }
   .gallery-layout {
     display: grid;
@@ -150,6 +159,27 @@
     object-fit: cover;
   }
 
+  .sketch-overlay {
+    position: absolute;
+    top: -15px; /* Shifted upwards by a total of 15px */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transform: scale(1.8); /* Even larger */
+    animation: fadeInSketch 2s ease-in forwards;
+    animation-delay: 3s; /* Reduced delay to 3 seconds */
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  @keyframes fadeInSketch {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
   .back-button {
     margin-top: 50px;
     display: inline-block;
@@ -160,6 +190,82 @@
     font-size: 14px;
     border-bottom: 1px solid #000;
     padding-bottom: 4px;
+  }
+
+  /* Ideation Section */
+  .ideation-section {
+    padding: 100px 10%;
+    background: #fff;
+  }
+  .ideation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .ideation-header h2 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    letter-spacing: 2px;
+    color: #666;
+    text-align: center;
+    font-weight: 400;
+  }
+  .ideation-menu {
+    border-top: 1px solid #e0e0e0;
+  }
+  .ideation-item {
+    border-bottom: 1px solid #e0e0e0;
+    overflow: hidden;
+  }
+  .ideation-trigger {
+    width: 100%;
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-align: left;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .ideation-trigger:hover {
+    padding-left: 10px;
+  }
+  .ideation-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #000;
+    letter-spacing: -1px;
+  }
+  .ideation-icon {
+    font-size: 1.5rem;
+    transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    font-weight: 300;
+  }
+  .ideation-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0;
+  }
+  .ideation-item.active .ideation-content {
+    max-height: 500px;
+    padding-bottom: 40px;
+    opacity: 1;
+  }
+  .ideation-item.active .ideation-icon {
+    transform: rotate(45deg);
+  }
+  .ideation-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    max-width: 800px;
   }
 </style>
 </head>
@@ -190,24 +296,21 @@
     <div class="timeline-container">
       <div class="timeline-glass-pill"></div>
       <div class="timeline-items">
-        <div class="timeline-item">
+        <div class="timeline-item" onclick="document.getElementById('ideation-target').scrollIntoView({ behavior: 'smooth' });" style="cursor: pointer;">
           <div class="timeline-number">1</div>
           <h4>Ideation</h4>
         </div>
         <div class="timeline-item">
           <div class="timeline-number">2</div>
-          <h4>Prototyping</h4>
+          <h4>App</h4>
         </div>
         <div class="timeline-item">
           <div class="timeline-number">3</div>
-          <h4>Visual Craft</h4>
+          <h4>Process</h4>
         </div>
+
         <div class="timeline-item">
           <div class="timeline-number">4</div>
-          <h4>Engineering</h4>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-number">5</div>
           <h4>Exhibition</h4>
         </div>
       </div>
@@ -217,12 +320,63 @@
 
 <div class="project-gallery">
   <div class="gallery-layout">
-    <img src="photo/Gemini_Generated_Image_wyadpwyadpwyadpw.png" alt="Seedle Concept" class="gallery-image">
+    <div style="position: relative; grid-column: 1;">
+      <img src="photo/Gemini_Generated_Image_wyadpwyadpwyadpw.png" alt="Seedle Concept" class="gallery-image" style="width: 100%; display: block;">
+      <img src="photo/IMG_2925 (1).PNG" alt="Design Sketch" class="sketch-overlay">
+    </div>
     <img src="photo/Gemini_Generated_Image_8rr1y48rr1y48rr1.png" alt="Seedle Process" class="gallery-image">
     <div class="gallery-video-container">
       <video autoplay muted loop playsinline>
-        <source src="photo/Recording 2025-10-29 160808.mp4" type="video/mp4">
+        <source src="photo/recording2 .mp4" type="video/mp4">
       </video>
+    </div>
+  </div>
+</div>
+
+<div class="ideation-section" id="ideation-target">
+  <div class="ideation-container">
+    <div class="ideation-header">
+      <h2>Ideation</h2>
+    </div>
+    <div class="ideation-menu">
+      <!-- Why Section -->
+      <div class="ideation-item">
+        <button class="ideation-trigger" onclick="toggleIdeation(this)">
+          <span class="ideation-title">Why</span>
+          <span class="ideation-icon">+</span>
+        </button>
+        <div class="ideation-content">
+          <div class="ideation-text">
+            <p>Seedle was born from a desire to bridge the gap between digital manipulation and physical tactility. We asked ourselves: how can we make the act of "planting seeds" of ideas feel as tangible and rewarding as gardening, but in a digital space? The "why" lies in our need for more human-centric digital tools that encourage play and organic growth.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How Section -->
+      <div class="ideation-item">
+        <button class="ideation-trigger" onclick="toggleIdeation(this)">
+          <span class="ideation-title">How</span>
+          <span class="ideation-icon">+</span>
+        </button>
+        <div class="ideation-content">
+          <div class="ideation-text">
+            <p>The process involved rapid prototyping with p5.js and physical sensors. We focused on the "flick" gesture—a motion that is both intuitive and satisfying. By mapping physical acceleration to digital velocity, we created a seamless transition from the real world to the screen. Every interaction was refined to ensure it felt responsive and alive.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- What Section -->
+      <div class="ideation-item">
+        <button class="ideation-trigger" onclick="toggleIdeation(this)">
+          <span class="ideation-title">What</span>
+          <span class="ideation-icon">+</span>
+        </button>
+        <div class="ideation-content">
+          <div class="ideation-text">
+            <p>Seedle is an immersive installation where users use a custom-built handheld device to "throw" seeds onto a large-scale projection. Once planted, these digital seeds grow into unique generative flora based on the velocity and angle of the throw. It's a living canvas that evolves with every participant, turning collective action into a blooming digital garden.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

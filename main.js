@@ -115,3 +115,47 @@ hoverElements.forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
 });
+
+// Ideation Section Toggle
+function toggleIdeation(element) {
+  const item = element.parentElement;
+  
+  // If the current item is already active, close it
+  if (item.classList.contains('active')) {
+    item.classList.remove('active');
+  } else {
+    // Close all other items
+    document.querySelectorAll('.ideation-item').forEach(otherItem => {
+      otherItem.classList.remove('active');
+    });
+    // Open current item
+    item.classList.add('active');
+  }
+}
+
+// Scroll-based reveal for Ideation items
+const ideationObserverOptions = {
+  root: null,
+  rootMargin: '-40% 0px -40% 0px',
+  threshold: 0
+};
+
+const ideationObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Close all other items first to ensure only one is open
+      document.querySelectorAll('.ideation-item').forEach(item => {
+        if (item !== entry.target) item.classList.remove('active');
+      });
+      // Open the current entering item
+      entry.target.classList.add('active');
+    } else {
+      // Optional: Close when scrolling out of view
+      entry.target.classList.remove('active');
+    }
+  });
+}, ideationObserverOptions);
+
+document.querySelectorAll('.ideation-item').forEach(item => {
+  ideationObserver.observe(item);
+});
