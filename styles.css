@@ -309,24 +309,22 @@ body {
 .gallery-item img,
 .gallery-item video {
   width: 100%;
-  height: 100%; /* Ensure it fills the aspect-ratio container */
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4/ 3.46; /* More horizontal - shows more width, less side-cropping */
   object-fit: cover;
-  border-radius: 0; /* Removed radius to prevent edge artifacts */
+  border-radius: 0;
   margin-bottom: 25px;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
   border: none;
   outline: none;
   display: block;
-  background-color: #fff; /* Match page background */
+  background-color: #f9f9f9;
 }
 
 .gallery-video {
   object-fit: cover;
-  transform: scale(1.25); /* Aggressive zoom to crop out thick baked-in black bars */
-  transform-origin: center;
-  border: none !important;
-  outline: none !important;
+  object-position: center 30%;
+  background-color: transparent;
+  transform: translateY(-2px); /* Shave off 2px from the top against the hidden overflow */
 }
 
 .gallery-item h3 {
@@ -347,6 +345,15 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 400;
+}
+
+.gallery-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #888;
+  margin: 12px 0 0 0;
+  max-width: 90%;
 }
 
 /* Footer Section */
