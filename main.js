@@ -136,7 +136,7 @@ function toggleIdeation(element) {
 // Scroll-based reveal for Ideation items
 const ideationObserverOptions = {
   root: null,
-  rootMargin: '-40% 0px -40% 0px',
+  rootMargin: '-25% 0px -25% 0px',
   threshold: 0
 };
 
