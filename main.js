@@ -20,28 +20,32 @@ function hideIndexLoading() {
 }
 
 if (video) {
-  // Force video to load
+  // Set speed before load so the first frame is already at 2x (avoids 1x→2x glitch)
+  video.playbackRate = 2.0;
   video.load();
-  
+
   video.addEventListener('loadedmetadata', () => {
-    video.playbackRate = 2.0;
+    video.playbackRate = 2.0; // Ensure it stays 2x after metadata
   });
-  
+
   // Hide loading screen when video is ready to play
   video.addEventListener('canplay', hideIndexLoading);
   video.addEventListener('loadeddata', hideIndexLoading);
-  
+
   // Handle video errors gracefully
   video.addEventListener('error', (e) => {
     console.error('Video failed to load:', e);
     hideIndexLoading();
     revealContent(); // Show content even if video fails
   });
-  
-  // Handle stalled video (when loading stops)
+
+  // If loading stalls, retry once after a delay (avoid immediate reload glitch)
+  let stalledRetries = 0;
   video.addEventListener('stalled', () => {
-    console.warn('Video loading stalled, retrying...');
-    video.load(); // Try to reload
+    if (stalledRetries >= 1) return;
+    stalledRetries++;
+    console.warn('Video loading stalled, retrying once...');
+    setTimeout(() => { video.load(); }, 300);
   });
   
   // Store the original text and clear it for the typewriter effect
@@ -63,11 +67,16 @@ if (video) {
       // Reveal Nav
       if (nav) nav.style.opacity = '1';
 
+      // Reveal project/gallery section (unblur)
+      const gallerySection = document.querySelector('.gallery-section');
+      if (gallerySection) gallerySection.classList.remove('gallery-section-blurred');
+
       // Trigger card animations
       cards.forEach(card => {
         card.style.opacity = '1';
         card.classList.add('animate-in');
       });
+      document.body.classList.add('content-revealed');
 
       // Typewriter effect starts AFTER cards appear
       setTimeout(() => {
@@ -88,15 +97,28 @@ if (video) {
     }, 1200); // Start cards/nav after hero name fades in
   };
 
-  video.addEventListener('ended', revealContent);
-  
-  // Safety fallbacks
-  window.addEventListener('load', () => {
-    setTimeout(revealContent, 3000); 
-  });
-  
-  // In case metadata doesn't load or something else fails
-  setTimeout(revealContent, 5000);
+  // Coming back from a project page: show final state immediately, no animations
+  if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('skipIndexAnimations')) {
+    sessionStorage.removeItem('skipIndexAnimations');
+    hasRevealed = true;
+    hideIndexLoading();
+    if (heroName) heroName.style.opacity = '1';
+    if (nav) nav.style.opacity = '1';
+    const gallerySection = document.querySelector('.gallery-section');
+    if (gallerySection) gallerySection.classList.remove('gallery-section-blurred');
+    cards.forEach(card => {
+      card.style.opacity = '1';
+      card.classList.add('animate-in');
+    });
+    document.body.classList.add('content-revealed');
+    if (bgPara && originalText) bgPara.textContent = originalText;
+  } else {
+    video.addEventListener('ended', revealContent);
+    window.addEventListener('load', () => {
+      setTimeout(revealContent, 3000);
+    });
+    setTimeout(revealContent, 5000);
+  }
 }
 
 document.addEventListener('mousemove', (e) => {
@@ -120,13 +142,9 @@ cards.forEach(card => {
     if (card.classList.contains('card-falling')) return;
     card.classList.add('card-falling');
     card.style.zIndex = 1000;
-    card.style.transition = 'transform 1.1s ease-in';
+    card.style.transition = 'transform 1.2s ease-in';
     const rotation = cardRotations[card.classList[1]] || '0deg';
-    card.style.transform = `translateY(160vh) rotate(${rotation})`;
-    setTimeout(() => {
-      const footer = document.getElementById('footer');
-      if (footer) footer.scrollIntoView({ behavior: 'smooth' });
-    }, 1200);
+    card.style.transform = `translateY(220vh) rotate(${rotation})`;
   });
 });
 

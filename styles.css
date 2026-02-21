@@ -259,25 +259,25 @@ a, button, [onclick], .nav > div, .nav span, .nav-right span, .timeline-item, .b
 
 /* Card placement */
 .card.orange {
-  top: 52%;
+  top: 38%;
   left: 34%;
   transform: rotate(-3deg);
 }
 
 .card.peach {
-  top: 60%;
+  top: 48%;
   left: 52%;
   transform: rotate(2deg);
 }
 
 .card.blue {
-  top: 68%;
+  top: 60%;
   left: 33%;
   transform: rotate(-8deg);
 }
 
 .card.green {
-  top: 55%;
+  top: 43%;
   left: 62%;
   transform: rotate(6deg);
 }
@@ -316,7 +316,7 @@ a, button, [onclick], .nav > div, .nav span, .nav-right span, .timeline-item, .b
 
 .white-page-line {
   position: absolute;
-  bottom: 48%;
+  bottom: 50px;
   left: 0;
   right: 0;
   border-bottom: 1px solid #000;
@@ -340,6 +340,11 @@ a, button, [onclick], .nav > div, .nav span, .nav-right span, .timeline-item, .b
   padding: 100px 5%;
   background: #fff;
   min-height: 100vh;
+  transition: filter 1.2s ease, opacity 1.2s ease;
+}
+.gallery-section.gallery-section-blurred {
+  filter: blur(12px);
+  opacity: 0.5;
 }
 
 .gallery-container {

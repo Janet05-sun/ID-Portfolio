@@ -202,6 +202,15 @@
   .zoomable {
     cursor: none;
   }
+  #bloom-gallery-video {
+    pointer-events: none;
+  }
+  #bloom-gallery-video::-webkit-media-controls {
+    display: none !important;
+  }
+  #bloom-gallery-video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
 </style>
 </head>
 <body>
@@ -255,15 +264,11 @@
 </div>
 
 <div class="project-gallery">
-  <div class="gallery-layout">
-    <div style="grid-column: 1;">
-       
-       <img src="photo/Bloom/IMG_3607 (1).png" alt="Bloom Detail" class="gallery-image zoomable" style="margin-top: 40px;">
-    </div>
-    <div style="grid-column: 2;">
-       <img src="photo/Bloom/IMG_3627 (1).png" alt="Bloom Process" class="gallery-image zoomable">
-       <img src="photo/Bloom/IMG_3651 (1).png" alt="Bloom Light" class="gallery-image zoomable" style="margin-top: 40px;">
-    </div>
+  <div style="max-width: 600px; margin: 0 auto;">
+    <video id="bloom-gallery-video" autoplay muted loop playsinline preload="auto" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+      <source src="photo/Bloom/0219(2).mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 </div>
 
@@ -324,7 +329,7 @@
 </div>
 
 <div style="text-align: center; padding: 60px 0 100px 0; background: #fff;">
-  <a href="index.html" class="back-button">← Back to Home</a>
+  <a href="index.html" class="back-button" onclick="sessionStorage.setItem('skipIndexAnimations','1')">← Back to Home</a>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -346,6 +351,11 @@
 
 <script src="main.js"></script>
 <script>
+  // Slow down the gallery video
+  var galleryVideo = document.getElementById('bloom-gallery-video');
+  if (galleryVideo) {
+    galleryVideo.addEventListener('loadedmetadata', function() { this.playbackRate = 0.6; });
+  }
   // Lightbox functionality
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('img');

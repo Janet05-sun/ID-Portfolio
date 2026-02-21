@@ -43,6 +43,60 @@
   @keyframes index-loading-spin {
     to { transform: rotate(360deg); }
   }
+  /* Click me cursor on cards */
+  .cursor.click-me-bubble {
+    width: 0;
+    height: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .cursor.click-me-bubble::after {
+    content: "click me";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #222;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 14px;
+    border-radius: 100px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  /* Coming soon cursor on NASA x RISD */
+  .cursor.coming-soon-bubble {
+    width: 0;
+    height: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .cursor.coming-soon-bubble::after {
+    content: "coming soon";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #222;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 14px;
+    border-radius: 100px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
 </style>
 </head>
 
@@ -115,7 +169,7 @@
   <div class="white-page-line"></div>
 </div>
 
-<div class="gallery-section" id="work">
+<div class="gallery-section gallery-section-blurred" id="work">
   <div class="gallery-container">
     <div class="section-header">
       <h1>Janet Sun</h1>
@@ -248,7 +302,23 @@
       </div>
     </a>
 
+    <a href="locked-lotus.html" class="gallery-item-link">
+      <div class="gallery-item">
+        <img src="photo/LockedLotus/Untitled_White_Background_Edit_2026-02-21_15-52.png" alt="Locked Lotus">
+        <h3>Locked Lotus</h3>
+        <h5>Decorative object</h5>
+        <p>Lotus flowers and lantern structure—serene, refined, artisanal.</p>
+      </div>
+    </a>
 
+    <a href="#work" class="gallery-item-link gallery-item-link-nasa">
+      <div class="gallery-item">
+        <img src="photo/nasa/nasa%20x%20risd-01.png" alt="NASA x RISD" style="filter: grayscale(100%) invert(1);">
+        <h3>NASA x RISD</h3>
+        <h5>Collaboration</h5>
+        <p>Partnership between Rhode Island School of Design and NASA.</p>
+      </div>
+    </a>
 
     
   </div>
@@ -275,6 +345,24 @@
     if (bloomVideo) {
       bloomVideo.playbackRate = 0.4;
     }
+  })();
+  (function() {
+    var cursor = document.querySelector('.cursor');
+    var cards = document.querySelectorAll('.card');
+    if (!cursor || !cards.length) return;
+    cards.forEach(function(card) {
+      card.addEventListener('mouseenter', function() {
+        if (document.body.classList.contains('content-revealed')) cursor.classList.add('click-me-bubble');
+      });
+      card.addEventListener('mouseleave', function() { cursor.classList.remove('click-me-bubble'); });
+    });
+  })();
+  (function() {
+    var cursor = document.querySelector('.cursor');
+    var nasaLink = document.querySelector('.gallery-item-link-nasa');
+    if (!cursor || !nasaLink) return;
+    nasaLink.addEventListener('mouseenter', function() { cursor.classList.add('coming-soon-bubble'); });
+    nasaLink.addEventListener('mouseleave', function() { cursor.classList.remove('coming-soon-bubble'); });
   })();
 </script>
 </body>
