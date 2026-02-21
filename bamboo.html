@@ -39,8 +39,8 @@
   
   /* Timeline Styles */
   .process-section {
-    margin: 200px 0;
-    margin-top: 10px;
+    margin: 80px 0;
+    margin-top: 40px;
   }
   .timeline-container {
     position: relative;
@@ -123,23 +123,37 @@
   .project-gallery {
     padding: 80px 10%;
     background: #fff;
-    margin-top: -220px;
     position: relative;
     z-index: 10;
   }
   .gallery-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
   }
   .gallery-image {
-    width: 100%;
+    width: 70%;
+    max-width: 900px;
     height: auto;
     border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: block;
   }
-  
+  .app-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2.3fr) minmax(180px, 0.7fr);
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .app-visual {
+    min-width: 0;
+    max-width: 720px;
+  }
+  .app-info {
+    min-width: 0;
+  }
+
   /* Ideation Section */
   .ideation-section {
     padding: 100px 10%;
@@ -191,13 +205,13 @@
   }
   .ideation-icon {
     font-size: 1.5rem;
-    transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 2.5s cubic-bezier(0.23, 1, 0.32, 1);
     font-weight: 300;
   }
   .ideation-content {
     max-height: 0;
     overflow: hidden;
-    transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 2.5s cubic-bezier(0.23, 1, 0.32, 1);
     opacity: 0;
   }
   .ideation-item.active .ideation-content {
@@ -225,6 +239,37 @@
     filter: brightness(1.1);
   }
 
+  /* Assembling Instructions video: not interactive, no controls */
+  .assembly-video-playonly {
+    pointer-events: none;
+  }
+  .assembly-video-playonly::-webkit-media-controls {
+    display: none !important;
+  }
+  .assembly-video-playonly::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+
+  .key-steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .key-steps-list li {
+    margin-bottom: 10px;
+  }
+  .key-steps-list a {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .key-steps-list a:hover {
+    color: #d7d5d5;
+    text-decoration: none;
+  }
+
   .back-button {
     margin-top: 50px;
     display: inline-block;
@@ -247,7 +292,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.95);
-    cursor: zoom-out;
+    cursor: none;
     opacity: 0;
     transition: opacity 0.3s ease;
     align-items: center;
@@ -265,6 +310,188 @@
     transform: scale(0.9);
     transition: transform 0.3s ease;
   }
+
+  /* Process: text on the right when hovering pictures */
+  #process-target .process-image-wrap {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    max-width: 100%;
+  }
+  #process-target .process-image-wrap .process-img-cell {
+    flex-shrink: 0;
+    min-width: 0;
+    width: 100%;
+    max-width: 480px;
+  }
+  #process-target .process-image-wrap .process-img-cell img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    display: block;
+  }
+  #process-target .process-image-wrap .process-img-cell img.process-img-crop {
+    max-height: 320px;
+    object-fit: cover;
+  }
+  #process-target .process-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+    padding: 12px 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 2s ease, visibility 2s ease, transform 2s ease;
+    min-width: 420px;
+    flex: 1;
+  }
+  #process-target .process-image-wrap.in-view .process-caption {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  @media (max-width: 900px) {
+    #process-target .process-image-wrap {
+      flex-direction: column;
+      max-width: 100%;
+    }
+    #process-target .process-caption {
+      min-width: 0;
+    }
+  }
+
+  /* YouTube link: no hand cursor, YouTube frame (play button + badge) */
+  .watch-me-link {
+    cursor: none;
+    position: relative;
+    display: block;
+  }
+  .watch-me-link .youtube-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .watch-me-link .youtube-play::after {
+    content: "";
+    margin-left: 6px;
+    width: 0;
+    height: 0;
+    border-left: 26px solid #fff;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+  }
+  .watch-me-link .youtube-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 1;
+    background: #ff0000;
+    color: #fff;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  /* YouTube hover: cursor becomes "watch me!" bubble */
+  .cursor.watch-me-bubble {
+    width: 0;
+    height: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .cursor.watch-me-bubble::after {
+    content: "watch me!";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #222;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 16px;
+    border-radius: 100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* Final look carousel */
+  .bamboo-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+  }
+  .bamboo-carousel::before,
+  .bamboo-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .bamboo-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+  .bamboo-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+  .bamboo-carousel-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: bamboo-carousel-scroll 45s linear infinite;
+  }
+  .bamboo-carousel-slide {
+    flex-shrink: 0;
+    width: 420px;
+    height: 340px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  .bamboo-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @keyframes bamboo-carousel-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @media (max-width: 600px) {
+    .bamboo-carousel-slide {
+      width: 300px;
+      height: 230px;
+    }
+  }
 </style>
 </head>
 
@@ -273,9 +500,9 @@
 <div class="cursor"></div>
 
 <div class="nav" style="opacity: 1;">
-  <div onclick="window.location.href='Index.html'" style="cursor: pointer;">Janet Sun</div>
+  <div onclick="window.location.href='index.html'" style="cursor: pointer;">Janet Sun</div>
   <div class="nav-right">
-    <span onclick="window.location.href='Index.html#work'" style="cursor: pointer;">Work</span>
+    <span onclick="window.location.href='index.html#work'" style="cursor: pointer;">Work</span>
     <span onclick="window.location.href='about.html'" style="cursor: pointer;">About</span>
   </div>
 </div>
@@ -309,49 +536,114 @@
   </div>
 </div>
 
+<div class="problem-section">
+  <span class="problem-label">The Problem</span>
+  <h2 class="problem-statement">
+    How can we bridge the gap between traditional craftsmanship and modern sustainable manufacturing?
+  </h2>
+</div>
+
 <div class="project-gallery">
   <div class="gallery-layout">
-    <div style="grid-column: span 2; display: flex; justify-content: center;">
-       <img src="photo/bamboo/BAMBOO1.png" alt="Bamboo Overview" class="gallery-image" style="width: 70%; display: block;">
-    </div>
+    <img src="photo/bamboo/BAMBOO1.png" alt="Bamboo overview" class="gallery-image zoomable">
+    <img src="photo/bamboo/File_000.png" alt="Bamboo detail" class="gallery-image zoomable">
+    <img src="photo/bamboo/File_000 (2).png" alt="Bamboo hanging overview" class="gallery-image zoomable">
+    <img src="photo/bamboo/Untitled_Image_3_2026-02-11_22-40.png" alt="Bamboo enrichment with bats" class="gallery-image zoomable">
   </div>
 </div>
 
-<div class="ideation-section" id="research-target">
+<div class="ideation-section" id="assembly-target">
   <div class="ideation-container">
     <div class="ideation-header">
-      <h2>Material Research</h2>
-    </div>
-    <div class="ideation-menu">
-      <div class="ideation-item">
-        <button class="ideation-trigger" onclick="toggleIdeation(this)">
-          <span class="ideation-title">Process & Properties</span>
-          <span class="ideation-icon">+</span>
-        </button>
-        <div class="ideation-content">
-          <div class="ideation-text">
-            <p>We analyzed the structural integrity of various bamboo species to determine their suitability for load-bearing applications. The goal was to create a design that honors the natural growth patterns of the material.</p>
-          </div>
-          <div class="why-gallery" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-            <img src="photo/bamboo/BAMBOO1.png" alt="Research 1" class="zoomable" style="width: 100%; border-radius: 12px;">
-            <img src="photo/bamboo/BAMBOO2.png" alt="Research 2" class="zoomable" style="width: 100%; border-radius: 12px;">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="ideation-section" id="form-target" style="padding-top: 50px;">
-  <div class="ideation-container">
-    <div class="ideation-header">
-      <h2>Form Development</h2>
+      <h2>Assembling Instructions</h2>
     </div>
     <div class="ideation-text">
-      <p>The form was derived from the bending radius of the specific bamboo strips. We utilized steam bending techniques to achieve organic curves without compromising strength.</p>
+      <p>Step-by-step view of how the bamboo components are assembled, from prepared strips to final structure.</p>
     </div>
-    <div style="margin-top: 40px;">
-      <img src="photo/bamboo/BAMBOO3.png" alt="Form Study" class="zoomable" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+    <div style="margin-top: 40px; max-width: 900px; margin-inline: auto;">
+      <video autoplay muted loop playsinline class="assembly-video-playonly" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+        <source src="photo/bamboo/INSTRUCTIONO VID BMBOO.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+<div class="ideation-section" id="process-target" style="padding-top: 20px;">
+  <div class="ideation-container">
+    <div class="ideation-header">
+      <h2>Process</h2>
+    </div>
+    <div class="app-layout" style="grid-template-columns: 2.3fr 0.7fr; gap: 20px;">
+      <div class="app-visual">
+        <h4 id="sketches-step" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Sketches</h4>
+        <div class="process-image-wrap">
+          <div class="process-img-cell">
+            <img src="photo/bamboo/IMG_2851 (1).JPG" alt="Bamboo enrichment sketches" class="zoomable" style="width: 100%; height: auto;">
+          </div>
+          <p class="process-caption">Initial sketches exploring form and structure for the bamboo enrichment. Early ideas for how strips could interlock and hang to create shelter and climbing opportunities.</p>
+        </div>
+        <h4 id="prototype-step" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Prototype</h4>
+        <div class="process-image-wrap">
+          <div class="process-img-cell">
+            <img src="photo/bamboo/bamboo-01.png" alt="Bamboo wireframe" class="zoomable" style="width: 100%; height: auto;">
+          </div>
+          <p class="process-caption">Wireframe and structural layout for the bamboo prototype. Mapping connections and load points to ensure stability and safe use.</p>
+        </div>
+        <div class="process-image-wrap">
+          <div class="process-img-cell" style="overflow: hidden; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <img src="photo/bamboo/Untitled_Image_8_2026-02-18_13-56.jpg" alt="Prototype in hand" class="zoomable process-img-crop" style="object-position: center -140px;">
+          </div>
+          <p class="process-caption">Hand-held prototype showing scale and material feel. Testing grip, weight, and how the bamboo strips behave when assembled.</p>
+        </div>
+        <h4 id="construction-step" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Construction</h4>
+        <div class="process-image-wrap">
+          <div class="process-img-cell" style="overflow: hidden; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <img src="photo/bamboo/IMG_0285.jpg" alt="Construction with bamboo offcuts and tools" class="zoomable process-img-crop" style="object-position: center -160px;">
+          </div>
+          <p class="process-caption">Exploring bamboo offcuts and tools to understand grain, joinery options, and finishing techniques. Material tests inform the final design choices.</p>
+        </div>
+        <h4 id="finishing-step" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Finishing & Assembly video</h4>
+        <div style="max-width: 100%; margin-bottom: 40px;">
+          <a href="https://youtube.com/shorts/Actbx_Ds7GI?feature=share" target="_blank" rel="noopener noreferrer" class="watch-me-link" style="display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <span class="youtube-play" aria-hidden="true"></span>
+            <span class="youtube-badge">YouTube</span>
+            <img src="https://img.youtube.com/vi/Actbx_Ds7GI/maxresdefault.jpg" alt="Finishing & Assembly video — YouTube Shorts" style="width: 100%; height: auto; display: block;" onerror="this.src='https://img.youtube.com/vi/Actbx_Ds7GI/hqdefault.jpg';">
+          </a>
+          <p style="font-family: 'Inter', sans-serif; font-size: 13px; color: #888; margin-top: 10px;">Click to watch on YouTube</p>
+        </div>
+      </div>
+      <div class="app-info" style="padding-left: 100px; align-self: start; margin-top: 820px;">
+        <div class="skills-group">
+          <h4 style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666;">Key Steps</h4>
+          <style>
+            .key-steps-list {
+              list-style: none;
+              padding: 0;
+            }
+            .key-steps-list li {
+              margin-bottom: 10px;
+            }
+            .key-steps-list a {
+              font-family: 'Inter', sans-serif;
+              font-size: 14px;
+              color: #333;
+              text-decoration: none;
+              transition: color 0.3s;
+            }
+            .key-steps-list a:hover {
+              color: #d7d5d5;
+              text-decoration: none;
+            }
+          </style>
+          <ul class="key-steps-list">
+            <li><a href="#sketches-step">Sketches</a></li>
+            <li><a href="#prototype-step">Prototype</a></li>
+            <li><a href="#construction-step">Construction</a></li>
+            <li><a href="#finishing-step">Finishing & Assembly video</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -359,17 +651,48 @@
 <div class="ideation-section" id="prototype-target" style="padding-top: 50px;">
   <div class="ideation-container">
     <div class="ideation-header">
-      <h2>Final Prototype</h2>
+      <h2>Final look</h2>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
-       <img src="photo/bamboo/IMG_0285.jpg" alt="Detail Shot" class="zoomable" style="width: 100%; border-radius: 12px;">
-       <img src="photo/bamboo/BAMBOO1.png" alt="Context Shot" class="zoomable" style="width: 100%; border-radius: 12px;">
+    <div class="bamboo-carousel">
+      <div class="bamboo-carousel-track">
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/Untitled_Image_3_2026-02-11_22-40.png" alt="Bamboo enrichment with bats" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/File_000.png" alt="Bamboo detail" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/File_000 (2).png" alt="Bamboo hanging overview" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/BAMBOO2.png" alt="Bamboo structure" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/BAMBOO3.png" alt="Bamboo prototype" class="zoomable">
+        </div>
+        <!-- duplicate set for seamless loop -->
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/Untitled_Image_3_2026-02-11_22-40.png" alt="Bamboo enrichment with bats" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/File_000.png" alt="Bamboo detail" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/File_000 (2).png" alt="Bamboo hanging overview" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/BAMBOO2.png" alt="Bamboo structure" class="zoomable">
+        </div>
+        <div class="bamboo-carousel-slide">
+          <img src="photo/bamboo/BAMBOO3.png" alt="Bamboo prototype" class="zoomable">
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <div style="text-align: center; padding: 60px 0 100px 0; background: #fff;">
-  <a href="Index.html" class="back-button">← Back to Home</a>
+  <a href="index.html" class="back-button">← Back to Home</a>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -382,7 +705,7 @@
       <p>&copy; 2026 Janet Sun. All rights reserved.</p>
     </div>
     <div class="footer-right">
-      <a href="mailto:hello@janetsun.com">Email</a>
+      <a href="mailto:janetsun05@gmail.com">Email</a>
       <a href="#">LinkedIn</a>
       <a href="#">Instagram</a>
     </div>
@@ -394,6 +717,29 @@
   function toggleIdeation(element) {
     const item = element.parentElement;
     item.classList.toggle('active');
+  }
+
+  // Process section: reveal captions one by one on scroll (no hover)
+  const processWraps = document.querySelectorAll('#process-target .process-image-wrap');
+  if (processWraps.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, { rootMargin: '0px 0px -80px 0px', threshold: 0.2 });
+    processWraps.forEach(wrap => observer.observe(wrap));
+  }
+
+  // YouTube video: show "watch me!" bubble cursor on hover
+  const watchMeLink = document.querySelector('.watch-me-link');
+  const cursorEl = document.querySelector('.cursor');
+  if (watchMeLink && cursorEl) {
+    watchMeLink.addEventListener('mouseenter', () => cursorEl.classList.add('watch-me-bubble'));
+    watchMeLink.addEventListener('mouseleave', () => cursorEl.classList.remove('watch-me-bubble'));
   }
 
   // Lightbox functionality

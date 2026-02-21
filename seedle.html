@@ -18,7 +18,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
   }
   .project-hero h1 {
     font-family: 'Roboto Mono', monospace;
@@ -43,8 +43,8 @@
   
   /* Timeline Styles */
   .process-section {
-    margin: 200px 0; /* Even more space between sections */
-    margin-top: 10px; /* Moved down by 15px (from -20px) */
+    margin: 80px 0; /* Reduced space between sections */
+    margin-top: 40px; /* Adjusted top margin */
   }
   .timeline-container {
     position: relative;
@@ -123,12 +123,44 @@
     letter-spacing: 1px;
   }
   /* Gallery Styles */
-  .project-gallery {
-    padding: 80px 10%;
+  .problem-section {
+    padding: 150px 10%;
     background: #fff;
-    margin-top: -220px;
     position: relative;
     z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .problem-label {
+    display: block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+  .problem-statement {
+    font-size: 2.2rem;
+    line-height: 1.4;
+    font-weight: 500;
+    max-width: 900px;
+    margin: 0;
+    color: #000;
+  }
+  .project-gallery {
+    padding: 100px 10%;
+    background: #fff;
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .gallery-layout {
     display: grid;
@@ -169,7 +201,7 @@
     mix-blend-mode: multiply;
     opacity: 0;
     transform: scale(1.8); /* Even larger */
-    animation: fadeInSketch 0.5s ease-in forwards;
+    animation: fadeInSketch 4s ease-in forwards;
     animation-delay: 0.5s;
     pointer-events: none;
     z-index: 2;
@@ -194,6 +226,10 @@
 
   /* Ideation Section */
   .ideation-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 100px 10%;
     background: #fff;
   }
@@ -244,13 +280,13 @@
   }
   .ideation-icon {
     font-size: 1.5rem;
-    transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 2.5s cubic-bezier(0.23, 1, 0.32, 1);
     font-weight: 300;
   }
   .ideation-content {
     max-height: 0;
     overflow: hidden;
-    transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 2.5s cubic-bezier(0.23, 1, 0.32, 1);
     opacity: 0;
   }
   .ideation-item.active .ideation-content {
@@ -271,7 +307,7 @@
 
   /* App Design Section */
   .app-section {
-    padding: 100px 10% 0 10%; /* Removed bottom padding */
+    padding: 200px 10% 0 10%; /* Increased top padding from 100px to 200px */
     background: #fff;
   }
   .app-layout {
@@ -307,8 +343,9 @@
   /* Carousel Styles */
   .horizontal-scroll-wrapper {
     position: relative;
-    height: 500vh; /* Increased from 350vh to make scroll last longer */
+    height: 500vh; /* Reduced height to make the section shorter overall */
     background: #fff;
+    overflow: visible;
   }
   .sticky-container {
     position: sticky;
@@ -320,10 +357,10 @@
   }
   .carousel-track {
     display: flex;
-    gap: 30px;
-    padding: 0 10%;
+    gap: 40px;
+    padding: 0 25vw 0 10vw; /* Reduced end padding to match shorter length */
     will-change: transform;
-    overflow-x: visible; 
+    flex-wrap: nowrap;
   }
   .carousel-track::-webkit-scrollbar {
     display: none; 
@@ -344,7 +381,7 @@
     height: calc(100% - 70px); /* Reserve space for the subtext */
     object-fit: cover;
     display: block;
-    cursor: zoom-in;
+    cursor: none;
   }
   .carousel-subtext {
     height: 70px; /* Unified height for subtext area */
@@ -370,7 +407,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.95);
-    cursor: zoom-out;
+    cursor: none;
     opacity: 0;
     transition: opacity 0.3s ease;
     align-items: center;
@@ -402,9 +439,9 @@
 <div class="cursor"></div>
 
 <div class="nav" style="opacity: 1;">
-  <div onclick="window.location.href='Index.html'" style="cursor: pointer;">Janet Sun</div>
+  <div onclick="window.location.href='index.html'" style="cursor: pointer;">Janet Sun</div>
   <div class="nav-right">
-    <span onclick="window.location.href='Index.html#work'" style="cursor: pointer;">Work</span>
+    <span onclick="window.location.href='index.html#work'" style="cursor: pointer;">Work</span>
     <span onclick="window.location.href='about.html'" style="cursor: pointer;">About</span>
   </div>
 </div>
@@ -444,6 +481,13 @@
   </div>
 </div>
 
+<div class="problem-section">
+  <span class="problem-label">The Problem</span>
+  <h2 class="problem-statement">
+   Climate change and well-intentioned but harmful human practices are disrupting hummingbird survival and natural food systems.
+  </h2>
+</div>
+
 <div class="project-gallery">
   <div class="gallery-layout">
     <div style="position: relative; grid-column: 1;">
@@ -451,11 +495,12 @@
       <img src="photo/seedle/IMG_2925 (1).PNG" alt="Design Sketch" class="sketch-overlay">
     </div>
     <img src="photo/seedle/Gemini_Generated_Image_8rr1y48rr1y48rr1.png" alt="Seedle Process" class="gallery-image">
-    <img src="photo/seedle/FLORA-Image Cleanup Request-6b68dd2f.png" alt="Seedle Flora" class="gallery-image">
+    <img src="photo/seedle/Untitled_Image_Enhancement_2026-02-09_13-22.jpg" alt="Seedle Flora" class="gallery-image">
     <img src="photo/seedle/FLORA-Charm Replacement Request-21f79f1e.png" alt="Seedle Charm" class="gallery-image" style="grid-column: 2;">
     <div class="gallery-video-container">
-      <video autoplay muted loop playsinline>
+      <video autoplay muted loop playsinline preload="auto">
         <source src="photo/seedle/recording2 .mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
     </div>
   </div>
@@ -542,8 +587,9 @@
       <div class="app-visual">
         <div class="app-screen-container">
           <div class="app-screen-wrapper">
-            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+            <video autoplay muted loop playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
               <source src="photo/seedle/recording2 .mp4" type="video/mp4">
+              Your browser does not support the video tag.
             </video>
           </div>
         </div>
@@ -605,18 +651,69 @@
     <div class="ideation-header">
       <h2>Process</h2>
     </div>
-    <div class="app-layout" style="grid-template-columns: 1.2fr 1fr;">
+    <div class="app-layout" style="grid-template-columns: 2.3fr 0.7fr; gap: 20px;">
       <div class="app-visual">
-        <img src="photo/seedle/solid works.png" alt="Development Process" class="zoomable" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+        <h4 id="step-sketches" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Sketches</h4>
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 15px; margin-bottom: 40px;">
+          <img src="photo/seedle/IMG_2848.JPG" alt="Sketch 1" class="zoomable" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+          <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 15px;">
+            <img src="photo/seedle/IMG_2850.JPG" alt="Sketch 2" class="zoomable" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <img src="photo/seedle/IMG_2849.JPG" alt="Sketch 3" class="zoomable" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+          </div>
+        </div>
+        
+        <h4 id="step-cad" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Solidworks</h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px;">
+          <img src="photo/seedle/solid works.png" alt="Development Process" class="zoomable" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+          <img src="photo/seedle/Screenshot 2026-01-22 230917.png" alt="CAD Detail" class="zoomable" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+          <img src="photo/seedle/Screenshot 2026-02-10 153529.png" alt="CAD Assembly" class="zoomable" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+        </div>
+
+        <h4 id="step-print" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">3D Print Iterations</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 85%; margin-bottom: 40px;">
+          <video autoplay muted loop playsinline style="width: 100%; height: 400px; object-fit: cover; object-position: center -80px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <source src="photo/seedle/IMG_9965.mp4" type="video/mp4">
+          </video>
+          <img src="photo/seedle/IMG_9966.jpg" alt="3D Print" class="zoomable" style="width: 100%; height: 400px; object-fit: cover; object-position: center 0px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+        </div>
+
+        <h4 id="step-polish" style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666; scroll-margin-top: 100px;">Polishing Final Prints</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; max-width: 85%;">
+          <img src="photo/seedle/IMG_7824.jpg" alt="Final Polish" class="zoomable" style="width: 100%; height: 400px; object-fit: cover; object-position: center 0px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+          <video autoplay muted loop playsinline style="width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+            <source src="photo/seedle/IMG_9971.mp4" type="video/mp4">
+          </video>
+          <img src="photo/seedle/IMG_9969.jpg" alt="Polishing Final Print" class="zoomable" style="width: 100%; height: 400px; object-fit: cover; object-position: center center; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+        </div>
       </div>
-      <div class="app-info">
+      <div class="app-info" style="padding-left: 100px; margin-top: -100px;">
         <div class="skills-group">
-          <h4>Key Steps</h4>
-          <ul>
-            <li>Form Sketch</li>
-            <li>3D CAD</li>
-            <li>3D Print Iterations</li>
-            <li>Polishing Final Prints</li>
+          <h4 style="font-family: 'Roboto Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666;">Key Steps</h4>
+          <style>
+            .key-steps-list {
+              list-style: none;
+              padding: 0;
+            }
+            .key-steps-list li {
+              margin-bottom: 10px;
+            }
+            .key-steps-list a {
+              font-family: 'Inter', sans-serif;
+              font-size: 14px;
+              color: #333;
+              text-decoration: none;
+              transition: color 0.3s;
+            }
+            .key-steps-list a:hover {
+              color: #d7d5d5;
+              text-decoration: none;
+            }
+          </style>
+          <ul class="key-steps-list">
+            <li><a href="#step-sketches">Form Sketch</a></li>
+            <li><a href="#step-cad">Solidworks</a></li>
+            <li><a href="#step-print">3D Print Iterations</a></li>
+            <li><a href="#step-polish">Polishing Final Prints</a></li>
           </ul>
         </div>
       </div>
@@ -638,14 +735,14 @@
     </div>
 
     <div class="ideation-text" style="margin-bottom: 20px;">
-      <p>Seedle was featured at the RISD Industrial Design Triennial Exhibition. </p>
+      <p>Seedle was featured at the RISD Industrial Design Triennial Exhibition @ Woods-Gerry Gallery. </p>
     </div>
     
   </div>
 </div>
 
 <div style="text-align: center; padding: 60px 0 100px 0; background: #fff;">
-  <a href="Index.html" class="back-button">← Back to Home</a>
+  <a href="index.html" class="back-button">← Back to Home</a>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -660,13 +757,19 @@
     <div class="footer-right">
       <a href="#">Instagram</a>
       <a href="#">LinkedIn</a>
-      <a href="#">Email</a>
+      <a href="mailto:janetsun05@gmail.com">Email</a>
     </div>
   </div>
 </footer>
 
 <script src="main.js"></script>
 <script>
+  // Force scroll to top on refresh
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   // Lightbox functionality
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = lightbox.querySelector('img');
@@ -691,26 +794,53 @@
   const wrapper = document.querySelector('.horizontal-scroll-wrapper');
   
   if (track && wrapper) {
-    window.addEventListener('scroll', () => {
-      const wrapperRect = wrapper.getBoundingClientRect();
-      const wrapperTop = wrapperRect.top;
-      const wrapperHeight = wrapperRect.height;
-      const stickyHeight = window.innerHeight;
+    let currentTranslate = 0;
+    let targetTranslate = 0;
+    const lerpAmount = 0.08; // Adjust for smoothness (lower = smoother)
+
+    const updateTranslate = () => {
+      // Smoothly interpolate current towards target
+      currentTranslate += (targetTranslate - currentTranslate) * lerpAmount;
       
-      // Calculate how far we've scrolled into the wrapper area (0 to 1)
-      // wrapperTop is negative when we start scrolling past the top of the section
-      let scrollProgress = -wrapperTop / (wrapperHeight - stickyHeight);
+      // Stop animating if we're very close to target
+      if (Math.abs(targetTranslate - currentTranslate) < 0.01) {
+        currentTranslate = targetTranslate;
+      } else {
+        requestAnimationFrame(updateTranslate);
+      }
+      
+      track.style.transform = `translateX(${-currentTranslate}px)`;
+    };
+
+    const handleScroll = () => {
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const totalScrollable = wrapperRect.height - viewportHeight;
+      const movementEnd = totalScrollable * 0.80; 
+      
+      let scrollProgress = -wrapperRect.top / movementEnd;
       scrollProgress = Math.max(0, Math.min(1, scrollProgress));
       
-      // Calculate max translate distance
       const trackWidth = track.scrollWidth;
-      const viewWidth = window.innerWidth;
-      const maxTranslate = trackWidth - viewWidth;
+      const viewportWidth = window.innerWidth;
+      const maxTranslate = trackWidth - viewportWidth;
       
       if (maxTranslate > 0) {
-        track.style.transform = `translateX(${-scrollProgress * maxTranslate}px)`;
+        const newTarget = scrollProgress * maxTranslate;
+        if (Math.abs(newTarget - targetTranslate) > 0.1) {
+          const wasAtTarget = targetTranslate === currentTranslate;
+          targetTranslate = newTarget;
+          if (wasAtTarget) {
+            requestAnimationFrame(updateTranslate);
+          }
+        }
       }
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    window.addEventListener('load', handleScroll);
+    handleScroll();
   }
 </script>
 </body>

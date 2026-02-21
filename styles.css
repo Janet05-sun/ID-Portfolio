@@ -33,21 +33,68 @@ body {
 /* Top Nav */
 .nav {
   position: fixed;
-  top: 20px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 10000;
-  padding: 0 24px 12px 24px;
+  padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 255, 255, 1);
-  color: #fff;
-  mix-blend-mode: difference;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid #000;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  color: #000;
   opacity: 0;
   transition: opacity 1s ease;
+}
+
+/* Problem Section Styles */
+.problem-section {
+  padding: 140px 10%;
+  background: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.problem-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+  margin-bottom: 40px;
+  font-weight: 400;
+  display: block;
+}
+
+.problem-statement {
+  font-family: 'Source Serif 4', serif;
+  font-size: 2.4rem;
+  line-height: 1.4;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #222;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .problem-section {
+    padding: 80px 5%;
+  }
+  .problem-statement {
+    font-size: 1.8rem;
+  }
 }
 
 .nav-right span {
@@ -135,12 +182,17 @@ body {
   pointer-events: none;
   z-index: 10001;
   transform: translate(-50%, -50%);
-  transition: transform 0.05s linear, width 0.2s ease, height 0.2s ease;
+  transition: left 0.15s ease-out, top 0.15s ease-out, width 0.2s ease, height 0.2s ease;
 }
 
 .cursor.grow {
   width: 65px;
   height: 65px;
+}
+
+/* No hand cursor - custom cursor only everywhere */
+a, button, [onclick], .nav > div, .nav span, .nav-right span, .timeline-item, .back-button, .ideation-trigger {
+  cursor: none !important;
 }
 
 /* Cards */
@@ -207,25 +259,25 @@ body {
 
 /* Card placement */
 .card.orange {
-  top: 38%;
+  top: 52%;
   left: 34%;
   transform: rotate(-3deg);
 }
 
 .card.peach {
-  top: 48%;
+  top: 60%;
   left: 52%;
   transform: rotate(2deg);
 }
 
 .card.blue {
-  top: 60%;
+  top: 68%;
   left: 33%;
   transform: rotate(-8deg);
 }
 
 .card.green {
-  top: 43%;
+  top: 55%;
   left: 62%;
   transform: rotate(6deg);
 }
@@ -264,7 +316,7 @@ body {
 
 .white-page-line {
   position: absolute;
-  bottom: 50px;
+  bottom: 48%;
   left: 0;
   right: 0;
   border-bottom: 1px solid #000;
@@ -407,6 +459,16 @@ body {
   object-position: center 30%;
   background-color: transparent;
   transform: translateY(-2px); /* Shave off 2px from the top against the hidden overflow */
+  pointer-events: none;
+}
+.gallery-video::-webkit-media-controls {
+  display: none !important;
+}
+.gallery-video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+.gallery-video::-webkit-media-controls-panel {
+  display: none !important;
 }
 
 .gallery-item h3 {
@@ -438,11 +500,81 @@ body {
   max-width: 90%;
 }
 
+/* Problem Section Styles */
+.problem-section {
+  padding: 140px 10%;
+  background: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.problem-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+  margin-bottom: 40px;
+  font-weight: 400;
+  display: block;
+}
+
+.problem-statement {
+  font-family: 'Source Serif 4', serif;
+  font-size: 2.4rem;
+  line-height: 1.4;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #222;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .problem-section {
+    padding: 80px 5%;
+  }
+  .problem-statement {
+    font-size: 1.8rem;
+  }
+}
+
+/* Marketing Section */
+.marketing-section {
+  width: 100%;
+  padding: 100px 10%;
+  background: #fff;
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.marketing-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+}
+
+.marketing-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.marketing-container:hover .marketing-image {
+  transform: scale(1.02);
+}
+
 /* Footer Section */
 .footer {
   background: #fff;
   color: #000;
-  padding: 80px 10%;
+  padding: 180px 10% 100px;
+  min-height: 40vh;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 

@@ -1,13 +1,47 @@
+// Force scroll to top on refresh
+if (history.scrollRestoration) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 const cursor = document.querySelector('.cursor');
 const cards = document.querySelectorAll('.card');
 const video = document.querySelector('.hero-video');
 const heroName = document.querySelector('.hero-name');
 const bgPara = document.querySelector('.bg-paragraph');
 const nav = document.querySelector('.nav');
+const indexLoading = document.getElementById('index-loading');
+
+function hideIndexLoading() {
+  if (indexLoading && !indexLoading.classList.contains('hidden')) {
+    indexLoading.classList.add('hidden');
+    indexLoading.setAttribute('aria-hidden', 'true');
+  }
+}
 
 if (video) {
+  // Force video to load
+  video.load();
+  
   video.addEventListener('loadedmetadata', () => {
     video.playbackRate = 2.0;
+  });
+  
+  // Hide loading screen when video is ready to play
+  video.addEventListener('canplay', hideIndexLoading);
+  video.addEventListener('loadeddata', hideIndexLoading);
+  
+  // Handle video errors gracefully
+  video.addEventListener('error', (e) => {
+    console.error('Video failed to load:', e);
+    hideIndexLoading();
+    revealContent(); // Show content even if video fails
+  });
+  
+  // Handle stalled video (when loading stops)
+  video.addEventListener('stalled', () => {
+    console.warn('Video loading stalled, retrying...');
+    video.load(); // Try to reload
   });
   
   // Store the original text and clear it for the typewriter effect
@@ -18,6 +52,7 @@ if (video) {
   const revealContent = () => {
     if (hasRevealed) return;
     hasRevealed = true;
+    hideIndexLoading();
 
     if (heroName) {
       heroName.style.opacity = '1';
@@ -69,45 +104,32 @@ document.addEventListener('mousemove', (e) => {
   cursor.style.top = e.clientY + 'px';
 });
 
-let activeCard = null;
-let offset = { x: 0, y: 0 };
-let zIndexCounter = 100;
+const cardRotations = { orange: '-3deg', peach: '2deg', green: '6deg' };
 
 cards.forEach(card => {
-  card.addEventListener('mousedown', (e) => {
-    activeCard = card;
-    card.style.zIndex = zIndexCounter++;
-    
-    // Calculate offset
-    const rect = card.getBoundingClientRect();
-    offset.x = e.clientX - rect.left;
-    offset.y = e.clientY - rect.top;
-    
-    card.style.transition = 'none';
-    card.style.animation = 'none'; // Stop floating animation once grabbed
-    card.style.opacity = '1'; // Ensure card stays visible
+  // Blue card: only toggle dark-mode on mousedown/mouseup (no fall, no drag)
+  if (card.classList.contains('blue')) {
+    card.addEventListener('mousedown', () => bgPara && bgPara.classList.add('dark-mode'));
+    card.addEventListener('mouseup', () => bgPara && bgPara.classList.remove('dark-mode'));
+    card.addEventListener('mouseleave', () => bgPara && bgPara.classList.remove('dark-mode'));
+    return;
+  }
 
-    // If blue card is clicked, toggle black text
-    if (card.classList.contains('blue')) {
-      bgPara.classList.add('dark-mode');
-    }
+  // Orange, peach, green: click = fall to bottom then scroll to footer
+  card.addEventListener('click', (e) => {
+    if (card.classList.contains('card-falling')) return;
+    card.classList.add('card-falling');
+    card.style.zIndex = 1000;
+    card.style.transition = 'transform 1.1s ease-in';
+    const rotation = cardRotations[card.classList[1]] || '0deg';
+    card.style.transform = `translateY(160vh) rotate(${rotation})`;
+    setTimeout(() => {
+      const footer = document.getElementById('footer');
+      if (footer) footer.scrollIntoView({ behavior: 'smooth' });
+    }, 1200);
   });
 });
 
-document.addEventListener('mousemove', (e) => {
-  if (activeCard) {
-    activeCard.style.left = (e.clientX - offset.x) + 'px';
-    activeCard.style.top = (e.clientY - offset.y) + 'px';
-    activeCard.style.transform = activeCard.style.transform.replace(/translateX\(-50%\)/, ''); // Remove centering
-  }
-});
-
-document.addEventListener('mouseup', () => {
-  if (activeCard && activeCard.classList.contains('blue')) {
-    bgPara.classList.remove('dark-mode');
-  }
-  activeCard = null;
-});
 
 // Cursor grow effect on hover
 const hoverElements = document.querySelectorAll('.card, .gallery-item img, .gallery-item video');
@@ -136,22 +158,26 @@ function toggleIdeation(element) {
 // Scroll-based reveal for Ideation items
 const ideationObserverOptions = {
   root: null,
-  rootMargin: '-25% 0px -25% 0px',
+  rootMargin: '-42% 0px -42% 0px', // Narrower center band for more stability
   threshold: 0
 };
+
+let ideationTimeout;
 
 const ideationObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      // Close all other items first to ensure only one is open
-      document.querySelectorAll('.ideation-item').forEach(item => {
-        if (item !== entry.target) item.classList.remove('active');
-      });
-      // Open the current entering item
-      entry.target.classList.add('active');
+      clearTimeout(ideationTimeout);
+      ideationTimeout = setTimeout(() => {
+        document.querySelectorAll('.ideation-item').forEach(item => {
+          if (item !== entry.target) item.classList.remove('active');
+        });
+        entry.target.classList.add('active');
+      }, 150);
     } else {
-      // Optional: Close when scrolling out of view
       entry.target.classList.remove('active');
+      // Also clear timeout if the item that was about to open leaves the zone
+      clearTimeout(ideationTimeout);
     }
   });
 }, ideationObserverOptions);
